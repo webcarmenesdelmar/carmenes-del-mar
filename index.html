@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10243a">
+  <meta name="description" content="Repositorio judicial de la Urbanización Cármenes del Mar. Documentación organizada por fases procesales.">
+  <title>Repositorio Judicial | Cármenes del Mar</title>
+
+  <style>
+    :root {
+      --navy: #10243a;
+      --navy-light: #1c3855;
+      --slate: #536579;
+      --bg: #f3f5f8;
+      --white: #ffffff;
+      --border: #dce3eb;
+      --gold: #c5a56a;
+      --red-bg: #fff4f1;
+      --red: #913d32;
+      --green: #17634c;
+      --radius: 16px;
+      --shadow: 0 6px 24px rgba(16, 36, 58, .06);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--navy);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    header {
+      color: var(--white);
+      background:
+        radial-gradient(ellipse at top right, #294664 0%, transparent 48%),
+        var(--navy);
+      padding: 42px 0 58px;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .eyebrow {
+      color: #e4c98e;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 800px;
+      margin: 12px 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.12;
+      letter-spacing: -.04em;
+    }
+
+    .intro {
+      max-width: 720px;
+      color: #d4deea;
+      font-size: 1.05rem;
+    }
+
+    .search-wrap {
+      margin-top: 28px;
+      max-width: 760px;
+    }
+
+    .search-wrap label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    #search {
+      width: 100%;
+      padding: 16px 18px;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 1rem;
+      background: white;
+      color: var(--navy);
+      outline-offset: 3px;
+    }
+
+    #search:focus {
+      border-color: var(--gold);
+      outline: none;
+    }
+
+    .featured {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: -24px;
+      position: relative;
+    }
+
+    .feature-card, .repo-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .feature-card h2, .repo-card h3 {
+      margin: 8px 0;
+      line-height: 1.3;
+    }
+
+    .feature-card p, .repo-card p {
+      color: var(--slate);
+      margin: 10px 0 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 5px;
+      background: #eaf0f6;
+      color: var(--navy-light);
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .alert {
+      border-left: 5px solid var(--red);
+      background: var(--red-bg);
+    }
+
+    .alert .tag {
+      color: var(--red);
+      background: #f9e2dd;
+    }
+
+    .status {
+      font-size: .9rem;
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    main { padding: 46px 0 60px; }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .section-heading p {
+      color: var(--slate);
+      margin: 4px 0 0;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .repo-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .repo-card h3 { font-size: 1.15rem; }
+
+    .number {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      color: white;
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .folder-link, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 750;
+      font-size: .9rem;
+      transition: background .2s, transform .2s;
+    }
+
+    .folder-link, .button-primary {
+      background: var(--navy);
+      color: white;
+    }
+
+    .folder-link:hover, .button-primary:hover {
+      background: var(--navy-light);
+      transform: translateY(-1px);
+    }
+
+    .button-secondary {
+      border: 1px solid var(--border);
+      color: var(--navy);
+      background: white;
+    }
+
+    .button-secondary:hover { background: #edf1f5; }
+
+    .documents {
+      width: 100%;
+      margin: 18px 0 0;
+      padding: 15px 0 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .documents h4 {
+      margin: 0 0 10px;
+      color: var(--slate);
+      font-size: .85rem;
+    }
+
+    .document-link {
+      display: block;
+      padding: 9px 0;
+      color: var(--navy-light);
+      text-decoration: none;
+      border-bottom: 1px solid #edf0f4;
+      overflow-wrap: anywhere;
+    }
+
+    .document-link::before {
+      content: "↗ ";
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .document-link:hover { text-decoration: underline; }
+
+    .no-results {
+      display: none;
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 12px;
+      color: var(--slate);
+    }
+
+    .search-count {
+      color: var(--slate);
+      font-size: .9rem;
+      margin: 0 0 15px;
+    }
+
+    footer {
+      padding: 28px 0;
+      color: #d4deea;
+      background: var(--navy);
+      font-size: .88rem;
+    }
+
+    footer p { margin: 6px 0; }
+
+    .footer-note { color: #aebed0; }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 700px) {
+      header { padding: 32px 0 48px; }
+      .featured, .repo-grid { grid-template-columns: 1fr; }
+      .feature-card, .repo-card { padding: 20px; }
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="eyebrow">Archivo documental · Seguimiento procesal</div>
+
+      <h1>Repositorio Judicial - Urbanización Cármenes del Mar</h1>
+
+      <p class="intro">
+        Repositorio documental del procedimiento judicial, organizado
+        cronológicamente por fases procesales y resoluciones.
+      </p>
+
+      <div class="search-wrap">
+        <label for="search">Buscar carpetas y documentos</label>
+        <input
+          type="search"
+          id="search"
+          placeholder="Ej.: sentencia, apelación, nulidad..."
+          autocomplete="off"
+          aria-describedby="search-count"
+        >
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <section class="featured" aria-label="Información destacada">
+
+      <article class="feature-card searchable">
+        <span class="tag">Resolución destacada</span>
+        <h2>Sentencia del Tribunal Supremo</h2>
+        <p>
+          Acceso directo a la sentencia y a la documentación asociada.
+        </p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: URL de la sentencia del Tribunal Supremo -->
+        <a
+          class="button button-primary"
+          href="https://drive.google.com/drive/my-drive"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Consultar sentencia ↗</a>
+      </article>
+
+      <article class="feature-card alert searchable">
+        <span class="tag">Seguimiento procesal</span>
+        <h2>Incidente de Nulidad ante el Tribunal Constitucional</h2>
+
+        <p class="status">Estado: pendiente de actualizar</p>
+
+        <p>
+          Este apartado debe reflejar el último hito procesal verificado:
+          presentación, resolución, admisión u otra actuación que corresponda.
+        </p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta del incidente de nulidad -->
+        <a
+          class="button button-secondary"
+          href="https://drive.google.com/drive/my-drive"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Consultar documentación ↗</a>
+      </article>
+
+    </section>
+  </div>
+
+  <main class="container">
+    <div class="section-heading">
+      <div>
+        <h2>Repositorio documental</h2>
+        <p>Documentación agrupada por fases del procedimiento.</p>
+      </div>
+    </div>
+
+    <p class="search-count" id="search-count" aria-live="polite">
+      Mostrando las 7 secciones.
+    </p>
+
+    <section class="repo-grid" id="repository" aria-label="Fases procesales">
+
+      <article class="repo-card searchable">
+        <span class="number">01</span>
+        <h3>Primera Instancia</h3>
+        <p>Documentación de la fase judicial inicial.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Primera Instancia -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: documento de Primera Instancia -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Demanda y escritos iniciales — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: resolución de Primera Instancia -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Resolución de primera instancia — sustituir por el título real</a>
+        </div>
+      </article>
+
+      <article class="repo-card searchable">
+        <span class="number">02</span>
+        <h3>Recurso Apelación Comunidades</h3>
+        <p>Escritos y actuaciones de apelación de las comunidades.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Apelación Comunidades -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: recurso de apelación -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Recurso de apelación — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: escrito relacionado -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Escritos y alegaciones — sustituir por el título real</a>
+        </div>
+      </article>
+
+      <article class="repo-card searchable">
+        <span class="number">03</span>
+        <h3>Recurso de Apelación Intervención Adhesiva</h3>
+        <p>Documentación de la intervención adhesiva en apelación.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Apelación Intervención Adhesiva -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: escrito de intervención adhesiva -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Escrito de intervención adhesiva — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: documentación de apelación -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Documentación complementaria — sustituir por el título real</a>
+        </div>
+      </article>
+
+      <article class="repo-card searchable">
+        <span class="number">04</span>
+        <h3>Recurso de Casación Comunidades</h3>
+        <p>Escritos y documentos de la fase de casación.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Casación Comunidades -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: recurso de casación -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Recurso de casación — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: escrito de oposición -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Oposición y escritos — sustituir por el título real</a>
+        </div>
+      </article>
+
+      <article class="repo-card searchable">
+        <span class="number">05</span>
+        <h3>Recurso de Casación Intervención Adhesiva</h3>
+        <p>Documentación de la intervención adhesiva en casación.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Casación Intervención Adhesiva -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: escrito de casación adhesiva -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Escrito de casación — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: documentos complementarios -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Documentación complementaria — sustituir por el título real</a>
+        </div>
+      </article>
+
+      <article class="repo-card searchable">
+        <span class="number">06</span>
+        <h3>Resoluciones Judiciales</h3>
+        <p>Resoluciones judiciales relevantes a lo largo del procedimiento.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Resoluciones Judiciales -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: sentencia del Tribunal Supremo -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Sentencia del Tribunal Supremo — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: otra resolución judicial -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Otras resoluciones — sustituir por el título real</a>
+        </div>
+      </article>
+
+      <article class="repo-card searchable">
+        <span class="number">07</span>
+        <h3>Incidente de Nulidad</h3>
+        <p>Escritos, justificantes de presentación y resoluciones del incidente.</p>
+
+        <!-- CAMBIAR ENLACE AQUÍ: carpeta de Incidente de Nulidad -->
+        <a class="folder-link"
+           href="https://drive.google.com/drive/my-drive"
+           target="_blank" rel="noopener noreferrer">Abrir carpeta ↗</a>
+
+        <div class="documents">
+          <h4>Documentos destacados</h4>
+
+          <!-- CAMBIAR ENLACE AQUÍ: escrito del incidente -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Escrito del incidente — sustituir por el título real</a>
+
+          <!-- CAMBIAR ENLACE AQUÍ: resolución o justificante -->
+          <a class="document-link" href="https://drive.google.com/drive/my-drive"
+             target="_blank" rel="noopener noreferrer">Resolución o justificante — sustituir por el título real</a>
+        </div>
+      </article>
+
+    </section>
+
+    <div class="no-results" id="no-results" role="status">
+      No se han encontrado carpetas ni documentos que coincidan con la búsqueda.
+      Prueba con otras palabras.
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Repositorio Judicial · Urbanización Cármenes del Mar</strong></p>
+      <p class="footer-note">
+        Archivo documental informativo. Consulta los documentos originales
+        y sus fechas para verificar cada actuación procesal.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById("search");
+    const cards = Array.from(document.querySelectorAll(".repo-card"));
+    const featuredCards = Array.from(
+      document.querySelectorAll(".feature-card")
+    );
+    const count = document.getElementById("search-count");
+    const noResults = document.getElementById("no-results");
+
+    function normalize(text) {
+      return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function filterRepository() {
+      const query = normalize(searchInput.value);
+      let visibleSections = 0;
+      let visibleDocuments = 0;
+      let visibleFeatured = 0;
+
+      featuredCards</bodypara cada uno(card => {
+        const partidos = normalizar(card.contenido de texto).incluye(consulta);
+        card.oculto = consulta !== "" && !partidos;
+        si (!card.oculto) visibleDestacadocuerpo++;
+      });
+
+      tareas.para cada uno(card => {
+        const texto de encabezado = normalizar(
+          card.Selector de consultas("h3").contenido de texto
+        );
+        const partidosEncabezado =
+          consulta === "" || texto de encabezado.incluye(consulta);
+
+        const documentos = Array.desde(
+          card.Selector de consultasTodos(".enlace-documento")
+        );
+
+        dejar documentos coincidentes = 0;
+
+        documentos.para cada uno(link => {
+          const coincidir con el documento =
+            consulta === "" || normalizar(link.contenido de texto).incluye(consulta);
+
+          // Si coinciden el título de la sección, más todos sus documentos.
+          link.oculto = consulta !== "" &&
+            !partidosEncabezado &&
+            !coincidir con el documento;
+
+          si (!link.oculto) documentos coincidentes++;
+        });
+
+        const visible = consulta === "" ||
+          partidosEncabezado ||
+          documentos coincidentes > 0;
+
+        card.oculto = !visible;
+
+        si (visible) {
+          Secciones visibles++;
+          Documentos visibles += documentos coincidentes;
+        }
+      });
+
+      const totalVisible = Secciones visibles + Destacado visible;
+      sin resultantes.estilo.visualizar = totalVisible === 0 ? "bloquear" : "ninguno";
+
+      si (consulta === "") {
+        contar.contenido de texto = "Mostrando las 7 secciones.";
+      } else {
+        contar.contenido de texto =
+          Secciones visibles + " secciones y " +
+          Documentos visibles + " une documentales coincidentes.";
+      }
+    }
+
+    entrada de búsqueda.addEventListener("entrada", filtroRepositorio);
+  </script>
+</cuervo>
+</html>
